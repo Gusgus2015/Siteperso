@@ -1,0 +1,5 @@
+# Siteperso\app\Resources\config\routing.yml
+
+app_accueil:
+    path:      /
+    defaults:  { _controller: AppBundle:Default:accueil }

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h2>Accueil</h2>
+  <article>
+    <header>
+	{% for post in post %}
+	  <h2>{{ post.titre }}</h2>
+      <i>Par {{ post.auteur }}</i>
+	  <time>Le {{ post.date|date('d/M/Y') }}</time>
+    </header>
+  
+    <div class="well">
+    {{ post.contenu }}
+    </div>
+  </article>
+  {% endfor %}
+  
+  <h4>Dernières commentaires</h4>
+  <p>Mais je ne peux pas faire un boucle sur les commentaires !</p>
+    
+{% endblock %}

@@ -4,6 +4,6 @@ parameters:
 #    parameter_name: value
 
 services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+ #    blog_mailer:
+ #        class: AppBundle\Services\service_mailer
+ #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]

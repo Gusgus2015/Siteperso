@@ -1,0 +1,25 @@
+# C:\wamp\www\Siteperso\src\AppBundle\Resources\config\routing.yml
+
+app_accueil:
+    path:      /
+    defaults:  { _controller: AppBundle:Default:accueil }
+
+app_contact:
+    path:      /contact
+    defaults:  { _controller: AppBundle:Default:contact }
+
+app_voir:
+    path:      /voir
+    defaults:  { _controller: AppBundle:Blog:voir }
+
+app_ajouter:
+    path:      /ajouter
+    defaults:  { _controller: AppBundle:Blog:ajouter }
+
+app_modifier:
+    path:      /modifier
+    defaults:  { _controller: AppBundle:Blog:modifier }
+
+app_supprimer:
+    path:      /supprimer
+    defaults:  { _controller: AppBundle:Blog:supprimer }
