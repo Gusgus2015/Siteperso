@@ -52,7 +52,7 @@ class Comment
 	
 	public function __construct()
 	{
-		$this->date = new \datetime());
+		$this->date = new \Datetime();
 	}
 
 
