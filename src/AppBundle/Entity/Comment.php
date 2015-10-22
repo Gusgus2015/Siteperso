@@ -43,11 +43,11 @@ class Comment
     private $contenu;
 	
 	 /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Post")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Post", inversedBy="comments")
      *
      * @ORM\JoinColumn(nullable=false)
      */
-    private $post_id;
+    private $post;
 	
 	
 	public function __construct()

@@ -2,21 +2,30 @@
 
 {% block body %}
 <h2>Accueil</h2>
-  <article>
-    <header>
-	{% for post in post %}
-	  <h2>{{ post.titre }}</h2>
-      <i>Par {{ post.auteur }}</i>
-	  <time>Le {{ post.date|date('d/M/Y') }}</time>
-    </header>
-  
+
+
+    <article>
+      <header>
+        <h2>{{ post.titre }}</h2>
+        <b><i>Par {{ post.auteur }}</i></b>
+        <time>Le {{ post.date|date('d/M/Y') }}</time>
+      </header>
+
     <div class="well">
     {{ post.contenu }}
     </div>
   </article>
+
+    <h4>Dernières commentaires</h4>
+	
+  {% for comment in post.comments %}
+    <div>    
+      <p>
+	    <b>Par {{ comment.auteur }}</b>
+        <time>Le {{ comment.date|date('d/M/Y') }}</time>
+        {{ comment.contenu }}
+	  </p>
+      <hr /> 
+    </div>
   {% endfor %}
-  
-  <h4>Dernières commentaires</h4>
-  <p>Mais je ne peux pas faire un boucle sur les commentaires !</p>
-    
 {% endblock %}

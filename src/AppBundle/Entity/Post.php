@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -49,6 +50,40 @@ class Post
      */
     private $contenu;
 
+    /**
+     *@ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="post", cascade={"persist"})  //je ne suis pas sûr du persist en ce cas !
+     *
+     */
+    protected $comments;
+	
+	// Comme la propriété $comments doit être un ArrayCollection,
+	// On doit la définir dans un constructeur :
+	public function __construct()
+	{
+		$this->date = new \Datetime();
+		$this->comments = new ArrayCollection();
+	}
+
+	// Le singulier, on ajoute une seule comment à la fois
+	public function addComment(Comment $comments)
+	{
+	// L'ArrayCollection comme un tableau
+		$this->comments[] = $comment;
+
+		return $this;
+	}
+
+	public function removeComment(Comment $comment)
+	{
+	// Méthode de l'ArrayCollection pour supprimer la catégorie en argument
+		$this->comments->removeElement($comment);
+	}
+
+	// Notez le pluriel, on récupère une liste de catégories ici !
+	public function getComment()
+	{
+		return $this->comments;
+	}
 
     /**
      * Get id
@@ -155,5 +190,14 @@ class Post
     {
         return $this->contenu;
     }
-}
 
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+}
