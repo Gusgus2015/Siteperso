@@ -2,17 +2,17 @@
 
 {% block entete %}
 
-  <h2>{{ parent() }} - Nouveau commentaire</h2>   
- 
+  <h2>{{ parent() }} - Nouveau commentaire</h2>
+
 {% endblock %}
 
 {% block body %}
-   <h3>Vous allez commenté l'article n° </h3>
+   <h3>Vous allez commenté l'article <strong>"{{ post.titre }}"</strong></h3>
    <p>Merci de remplir le formulaire et l'envoyer pour enrigestrer le commentaire</p>
    <form action="" method="post">
-   
+
       {{ form_widget(form) }}
-   
+
      <input type="submit" value="Envoyer">
    </form>
 {% endblock %}

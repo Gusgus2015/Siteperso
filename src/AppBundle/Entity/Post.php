@@ -55,7 +55,7 @@ class Post
      *
      */
     protected $comments;
-	
+
 	// Comme la propriété $comments doit être un ArrayCollection,
 	// On doit la définir dans un constructeur :
 	public function __construct()
@@ -63,22 +63,26 @@ class Post
 		$this->date = new \Datetime();
 		$this->comments = new ArrayCollection();
 	}
-		
-	public function addComment(AppBundle\Entity\Comment $comment)
+
+    /**
+     * @param Comment $comment
+     *
+     * @return $this
+     */
+	public function addComment(Comment $comment)
 	{
 		$this->comments[] = $comment;
-		
-		$comments->setPost($this);
+
+		$comment->setPost($this);
 
 		return $this;
 	}
-	
 
 	public function removeComment(Comment $comment)
-	{	
+	{
 		$this->comments->removeElement($comment);
 	}
-	
+
 	public function getComment()
 	{
 		return $this->comments;
@@ -193,7 +197,7 @@ class Post
     /**
      * Get comments
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Comment[]|ArrayCollection
      */
     public function getComments()
     {

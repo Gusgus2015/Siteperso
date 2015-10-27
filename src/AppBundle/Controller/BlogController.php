@@ -83,8 +83,9 @@ class BlogController extends Controller
 
             return $this->redirect($this->generateUrl('article', array('id' => $post->getId())));
         } else {
-            return $this->render('blog/ajouter.html.twig', array(
+            return $this->render('blog/commenter.html.twig', array(
                 'form' => $form->createView(),
+                'post' => $post,
             ));
         }
     }
