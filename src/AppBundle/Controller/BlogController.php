@@ -57,13 +57,22 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/ajouter", name="ajouter")
+     * @Route("/commenter/{id}", name="commenter")
      */
-    public function ajouterAction(Request $request) //la methode est mauvais, ne marche pas.
+    public function commenterAction($id, Request $request) //la methode est mauvais, ne marche pas.
     {
         $comment = new Comment();
-        $form    = $this->get('form.factory')->create(new CommentType(), $comment);
+        $form    = $this->createForm(new CommentType(), $comment);
 
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('AppBundle:Post');
+
+        /** @var Post $post */
+        $post = $repository->find($id);
+
+        $comment->setPost($post);
 
         if ($form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -72,7 +81,7 @@ class BlogController extends Controller
 
             $request->getSession()->getFlashBag()->add('notice', 'La question a bien été envoyé.');
 
-            return $this->redirect($this->generateUrl('article', array('id' => $comment->getId())));
+            return $this->redirect($this->generateUrl('article', array('id' => $post->getId())));
         } else {
             return $this->render('blog/ajouter.html.twig', array(
                 'form' => $form->createView(),

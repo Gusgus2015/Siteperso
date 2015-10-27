@@ -2,15 +2,15 @@
 
 {% block entete %}
 
-  <h2>{{ parent() }} - Le Blog</h2>   
- 
+  <h2>{{ parent() }} - Le Blog</h2>
+
 {% endblock %}
 
-{% block body %} 
+{% block body %}
 
   <article>
       <header>
-        <h2>{{ post.titre }}</h2> 
+        <h2>{{ post.titre }}</h2>
         <h4 class="bg-success">
         - Article N° {{ post.id  }}
         <a href="{{ path('blog') }}" class="btn btn-primary btn-xs">
@@ -38,19 +38,19 @@
   <h4>Dernières commentaires</h4>
 
   {% for comment in comments %}
-    <div>    
+    <div>
       <p>
         <b>Par {{ comment.auteur }}</b>
         <time>Le {{ comment.date|date('d/M/Y') }}</time>
         {{ comment.contenu }}
       </p>
-      <hr /> 
+      <hr />
     </div>
   {% else %}
-    <p>Pas de commentaire pour le moment, allé fait toi le premier commentaire !</p>  
+    <p>Pas de commentaire pour le moment, allé fait toi le premier commentaire !</p>
   {% endfor %}
   <h4 class="bg-success">
-     <a href="{{ path('ajouter', {'id': post.id}) }}" class="btn btn-primary btn-xs">
+     <a href="{{ path('commenter', {'id': post.id}) }}" class="btn btn-primary btn-xs">
           <i class="glyphicon glyphicon-chevron-left"></i>
           Merci pour faire un commentaire
         </a>
