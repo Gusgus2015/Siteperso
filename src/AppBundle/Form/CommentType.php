@@ -14,13 +14,12 @@ class CommentType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder            
+        $builder
             ->add('auteur')
             ->add('contenu')
-				//je pense que la solution est ici, mais je n'arrive pas a capture la id de l'objet post qui pase pour GET. 
-			;
+        ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
