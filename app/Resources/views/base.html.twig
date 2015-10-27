@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{% block title %}Bienveneu sur mon Siteperso !{% endblock %}</title>
+        <title>{% block title %}Siteperso{% endblock %}</title>
 
         {% block stylesheets %}
              <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
@@ -12,23 +12,28 @@
     </head>
 
     <body>
+	  
       <div class="container">
         <div id="header" class="jumbotron">
-          <h1>Mon Siteperso à partager avec vous </h1>
+          <h2>{% block entete %}Mon Siteperso{% endblock %}</h2>
           <p>Ce projet est propulsé par Alex et suivi par Gustavo :)</p>
           <p><a class="btn btn-primary btn-lg" href="http://localhost/Siteperso/web/app_dev.php/contact">Contact</a></p>
         </div>
-
+      
         <div class="row">
           <div id="menu" class="col-md-3">
             <h3>C'est parti...</h3>
             <ul class="nav nav-pills nav-stacked">
               <li><a href="{{ path('accueil') }}">Accueil</a></li> 
-              {# <li><a href="{{ path('app_add') }}">Ajouter un billet</a></li> #}
+              <li><a href="{{ path('blog') }}">Blog</a></li>
             </ul>        
           </div>
           <div id="content" class="col-md-9">        
-
+            <p>
+              {% for message in app.session.flashbag.get('notice') %}
+              <p class="bg-success">Message flash : {{ message }}</p>
+              {% endfor %}
+            </p>
         {% block body %}
 
         {% endblock %}

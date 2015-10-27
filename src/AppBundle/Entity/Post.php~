@@ -64,21 +64,23 @@ class Post
 		$this->comments = new ArrayCollection();
 	}
 		
-	public function addComment(AppBundle\Entity\Comment $comment)
+	public function addComment(Comment $comment)
 	{
 		$this->comments[] = $comment;
 		
-		$comments->setPost($this);
+		$comment->setPost($this);
 
 		return $this;
 	}
 	
 
 	public function removeComment(Comment $comment)
-	{	
+	{
+	// Méthode de l'ArrayCollection pour supprimer la catégorie en argument
 		$this->comments->removeElement($comment);
 	}
-	
+
+	// Notez le pluriel, on récupère une liste de catégories ici !
 	public function getComment()
 	{
 		return $this->comments;

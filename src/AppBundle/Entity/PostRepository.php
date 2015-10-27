@@ -10,4 +10,29 @@ namespace AppBundle\Entity;
  */
 class PostRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function myFindAll()
+	{		
+		$req = $this->createQueryBuilder('p');
+		
+		$req->select('p')
+			->from('AppBundle:Post', 'p')
+			->orderby('p.date', 'DESC')			
+			;
+		//j'ajouté cela pour limiter les resultat aux dernières 5 post
+		$offset = (int)$_GET['offset'] = 0;
+		$limit = (int)$_GET['limit'] = 5;
+
+		$req->add('select', 'p')
+		    ->add('from', 'AppBundle:Post p')
+		    ->add('orderBy', 'p.date DESC')
+		    ->setFirstResult($offset)
+		    ->setMaxResults($limit)
+			;
+		
+		return   $req->getQuery()
+					 ->getResult()
+					 ;
+	}
+	
+	
 }

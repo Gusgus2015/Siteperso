@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block entete %}
+
+  <h2>{{ parent() }} - Le Blog</h2>   
+ 
+{% endblock %}
+
+{% block body %} 
+
+  <article>
+      <header>
+        <h2>{{ post.titre }}</h2> 
+        <h4 class="bg-success">
+        - Article N° {{ post.id  }}
+        <a href="{{ path('blog') }}" class="btn btn-primary btn-xs">
+          <i class="glyphicon glyphicon-chevron-left"></i>
+          Retour à la liste d'articles
+        </a>
+        <a href="{{ path('modifier', {'id': post.id}) }}" class="btn btn-default btn-xs">
+          <i class="glyphicon glyphicon-edit"></i>
+          Modifier l'article N° {{ post.id  }}
+        </a>
+        <a href="{{ path('supprimer', {'id': post.id}) }}" class="btn btn-danger btn-xs">
+          <i class="glyphicon glyphicon-trash"></i>
+          Supprimer l'article N° {{ post.id  }}
+        </a>
+        </h4>
+        <b><i>Par {{ post.auteur }}</i></b>
+        <time>Le {{ post.date|date('d/M/Y') }}</time>
+      </header>
+
+    <div class="well well-sm">
+    {{ post.contenu }}
+    </div>
+  </article>
+
+  <h4>Dernières commentaires</h4>
+
+  {% for comment in comments %}
+    <div>    
+      <p>
+        <b>Par {{ comment.auteur }}</b>
+        <time>Le {{ comment.date|date('d/M/Y') }}</time>
+        {{ comment.contenu }}
+      </p>
+      <hr /> 
+    </div>
+  {% else %}
+    <p>Pas de commentaire pour le moment, allé fait toi le premier commentaire !</p>  
+  {% endfor %}
+  <h4 class="bg-success">
+     <a href="{{ path('ajouter', {'id': post.id}) }}" class="btn btn-primary btn-xs">
+          <i class="glyphicon glyphicon-chevron-left"></i>
+          Merci pour faire un commentaire
+        </a>
+   </h4>
+{% endblock %}

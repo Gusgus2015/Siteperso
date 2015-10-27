@@ -1,9 +1,12 @@
 {% extends 'base.html.twig' %}
 
+{% block entete %}
+
+  <h2>{{ parent() }} - Accueil</h2>   
+ 
+{% endblock %}
+
 {% block body %}
-<h2>Accueil</h2>
-
-
     <article>
       <header>
         <h2>{{ post.titre }}</h2>
@@ -11,21 +14,24 @@
         <time>Le {{ post.date|date('d/M/Y') }}</time>
       </header>
 
-    <div class="well">
+    <div class="well well-sm">                  {#  <div class="well">  #}
     {{ post.contenu }}
     </div>
   </article>
 
     <h4>Dernières commentaires</h4>
-	
-  {% for comment in post.comments %}
+
+  {% for comment in comments %}
     <div>    
       <p>
-	    <b>Par {{ comment.auteur }}</b>
+        <b>Par {{ comment.auteur }}</b>
         <time>Le {{ comment.date|date('d/M/Y') }}</time>
         {{ comment.contenu }}
-	  </p>
+      </p>
       <hr /> 
     </div>
+  {% else %}
+    <p>Pas de commentaire pour le moment, allé fait toi le premier commentaire !</p>
   {% endfor %}
+  
 {% endblock %}

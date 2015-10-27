@@ -2,16 +2,15 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Post
+ * Comment
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="AppBundle\Entity\PostRepository")
+ * @ORM\Entity
  */
-class Post
+class Comment
 {
     /**
      * @var integer
@@ -32,13 +31,6 @@ class Post
     /**
      * @var string
      *
-     * @ORM\Column(name="titre", type="string", length=255)
-     */
-    private $titre;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="auteur", type="string", length=255)
      */
     private $auteur;
@@ -49,40 +41,20 @@ class Post
      * @ORM\Column(name="contenu", type="text")
      */
     private $contenu;
-
-    /**
-     *@ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="post")
-     *
-     */
-    protected $comments;
 	
-	// Comme la propriété $comments doit être un ArrayCollection,
-	// On doit la définir dans un constructeur :
+	 /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Post", inversedBy="comments")
+     *
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $post;
+	
+	
 	public function __construct()
 	{
-		$this->date = new \Datetime();
-		$this->comments = new ArrayCollection();
+		$this->date = new \Datetime();		
 	}
-		
-	public function addComment(AppBundle\Entity\Comment $comment)
-	{
-		$this->comments[] = $comment;
-		
-		$comments->setPost($this);
 
-		return $this;
-	}
-	
-
-	public function removeComment(Comment $comment)
-	{	
-		$this->comments->removeElement($comment);
-	}
-	
-	public function getComment()
-	{
-		return $this->comments;
-	}
 
     /**
      * Get id
@@ -99,7 +71,7 @@ class Post
      *
      * @param \DateTime $date
      *
-     * @return Post
+     * @return Comment
      */
     public function setDate($date)
     {
@@ -119,35 +91,11 @@ class Post
     }
 
     /**
-     * Set titre
-     *
-     * @param string $titre
-     *
-     * @return Post
-     */
-    public function setTitre($titre)
-    {
-        $this->titre = $titre;
-
-        return $this;
-    }
-
-    /**
-     * Get titre
-     *
-     * @return string
-     */
-    public function getTitre()
-    {
-        return $this->titre;
-    }
-
-    /**
      * Set auteur
      *
      * @param string $auteur
      *
-     * @return Post
+     * @return Comment
      */
     public function setAuteur($auteur)
     {
@@ -171,7 +119,7 @@ class Post
      *
      * @param string $contenu
      *
-     * @return Post
+     * @return Comment
      */
     public function setContenu($contenu)
     {
@@ -191,12 +139,26 @@ class Post
     }
 
     /**
-     * Get comments
+     * Set post
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @param \AppBundle\Entity\Post $post
+     *
+     * @return Comment
      */
-    public function getComments()
+    public function setPost(\AppBundle\Entity\Post $post)
     {
-        return $this->comments;
+        $this->post = $post;
+
+        return $this;
+    }
+
+    /**
+     * Get post
+     *
+     * @return \AppBundle\Entity\Post
+     */
+    public function getPost()
+    {
+        return $this->post;
     }
 }

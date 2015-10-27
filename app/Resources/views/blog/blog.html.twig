@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block entete %}
+
+  <h2>{{ parent() }} - Le Blog</h2>   
+ 
+{% endblock %}
+{% block body %}
+     <h4>Dernières post du Blog</h4>
+	
+  {% for post in posts %}
+    <div>    
+      <p>
+	    <a href="{{ path('article', {'id': post.id}) }}" class="btn btn-default btn-xs">
+          <i class="glyphicon glyphicon-edit"></i>
+          Voir l'article N° {{ post.id  }}
+        </a>
+	    <b>Par {{ post.auteur }}</b>
+        <time>,le {{ post.date|date('d/M/Y') }}</time>
+        {{ post.titre }}				
+	  </p>
+      <hr /> 
+    </div>
+  {% endfor %}
+
+{% endblock %}

@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Post;
 use AppBundle\Entity\Comment;
+use AppBundle\Entity\Messages;
 use AppBundle\Form\MessagesType;
 
 class DefaultController extends Controller
@@ -23,7 +24,7 @@ class DefaultController extends Controller
 		'date' => 'desc'
 		));
 		
-		//ça ne marche pas, forcement il y a un erreur encore
+		//รงa ne marche pas, forcement il y a un erreur encore
 		$em = $this->getDoctrine()->getManager();
 		$comments = $em->getRepository('AppBundle:Comment')->findBy(array('post' => $post),		 
 		array('date' => 'desc'),       
@@ -40,16 +41,28 @@ class DefaultController extends Controller
 	/**
 	 * @Route("/contact", name="contact")
 	 */
-    public function contactAction()
-    {
-		$em = $this->getDoctrine()->getManager();
+    public function contactAction(Request $request)
+    {	
+		$messages = new Messages();
+		$form = $this->get('form.factory')->create(new MessagesType(), $messages);
+		
+		
+		if ($form->handleRequest($request)->isValid()) 
+		{
+			$em = $this->getDoctrine()->getManager();
+			$em->persist($messages);
+			$em->flush();
+			
+			$request->getSession()->getFlashBag()->add('notice', 'La question a bien été envoyé.');
 
-		$form = $this->createForm(new MessagesType());
-
-
-		return $this->render('default/contact.html.twig', array(
-		'form' => $form->createView(),
-		));
+			return $this->redirect($this->generateUrl('accueil', array('id' => $messages->getId())));			
+		}
+		else
+		{
+			return $this->render('default/contact.html.twig', array(
+					'form' => $form->createView(),
+					));
+		}		
     }
 	
 	

@@ -18,10 +18,11 @@ class MessagesType extends AbstractType
             ->add('nom')
             ->add('prenom')
             ->add('email')
-            ->add('question')
+            ->add('question')			
             ;
     }
-    
+	
+	
     /**
      * @param OptionsResolverInterface $resolver
      */
