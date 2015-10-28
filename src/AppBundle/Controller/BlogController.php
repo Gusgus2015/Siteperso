@@ -41,8 +41,8 @@ class BlogController extends Controller
             ->getManager()
             ->getRepository('AppBundle:Post');
 
-        $post = $repository->find($id);
-
+        $post = $repository->find($id);		
+		
         $em       = $this->getDoctrine()->getManager();
         $comments = $em->getRepository('AppBundle:Comment')->findBy(array('post' => $post),
             array('date' => 'desc'),
@@ -59,7 +59,7 @@ class BlogController extends Controller
     /**
      * @Route("/commenter/{id}", name="commenter")
      */
-    public function commenterAction($id, Request $request) //la methode est mauvais, ne marche pas.
+    public function commenterAction($id, Request $request)
     {
         $comment = new Comment();
         $form    = $this->createForm(new CommentType(), $comment);
@@ -79,7 +79,7 @@ class BlogController extends Controller
             $em->persist($comment);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('notice', 'La question a bien été envoyé.');
+            $request->getSession()->getFlashBag()->add('notice', 'Le commentaire a été bien ajouté !');
 
             return $this->redirect($this->generateUrl('article', array('id' => $post->getId())));
         } else {
@@ -91,20 +91,6 @@ class BlogController extends Controller
     }
 
 
-    /**
-     * @Route("/modifier", name="modifier")
-     */
-    public function modifierAction()
-    {
-        return $this->render("blog/modifier.html.twig");
-    }
-
-    /**
-     * @Route("/supprimer", name="supprimer")
-     */
-    public function supprimerAction()
-    {
-        return $this->render("blog/supprimer.html.twig");
-    }
+    
 
 }

@@ -13,15 +13,15 @@
         <h2>{{ post.titre }}</h2>
         <h4 class="bg-success">
         - Article N° {{ post.id  }}
-        <a href="{{ path('blog') }}" class="btn btn-primary btn-xs">
+        <a href="{{ path('blog') }}" class="btn btn-default btn-xs">
           <i class="glyphicon glyphicon-chevron-left"></i>
           Retour à la liste d'articles
         </a>
-        <a href="{{ path('modifier', {'id': post.id}) }}" class="btn btn-default btn-xs">
+		<a href="{{ path('commenter', {'id': post.id}) }}" class="btn btn-primary btn-xs">
           <i class="glyphicon glyphicon-edit"></i>
-          Modifier l'article N° {{ post.id  }}
-        </a>
-        <a href="{{ path('supprimer', {'id': post.id}) }}" class="btn btn-danger btn-xs">
+          Merci pour faire un commentaire
+        </a>		
+		<a href="{{ path('supprimer_post', {'id': post.id}) }}" class="btn btn-danger btn-xs">
           <i class="glyphicon glyphicon-trash"></i>
           Supprimer l'article N° {{ post.id  }}
         </a>
@@ -43,16 +43,14 @@
         <b>Par {{ comment.auteur }}</b>
         <time>Le {{ comment.date|date('d/M/Y') }}</time>
         {{ comment.contenu }}
+		<a href="{{ path('supprimer_comment', {'id': comment.id}) }}" class="btn btn-danger btn-xs">
+          <i class="glyphicon glyphicon-trash"></i>
+          Suprimer le commentaire N° {{ comment.id  }}
+        </a>
       </p>
       <hr />
     </div>
   {% else %}
     <p>Pas de commentaire pour le moment, allé fait toi le premier commentaire !</p>
-  {% endfor %}
-  <h4 class="bg-success">
-     <a href="{{ path('commenter', {'id': post.id}) }}" class="btn btn-primary btn-xs">
-          <i class="glyphicon glyphicon-chevron-left"></i>
-          Merci pour faire un commentaire
-        </a>
-   </h4>
+  {% endfor %}  
 {% endblock %}

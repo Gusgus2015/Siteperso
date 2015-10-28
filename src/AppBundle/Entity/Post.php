@@ -51,7 +51,7 @@ class Post
     private $contenu;
 
     /**
-     *@ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="post")
+     *@ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="post", cascade={"remove"})
      *
      */
     protected $comments;
