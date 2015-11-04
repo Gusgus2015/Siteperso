@@ -24,7 +24,7 @@
     <label for="auteurs">Auteurs :</label>
     <select name="auteurs[]" id="auteurs" multiple>
         {% for auteur in auteurs %}
-            <option value="{{ auteur.name }}">{{ auteur.name }}</option>
+            <option value="{{ auteur.username }}">{{ auteur.username }}</option>
         {% endfor %}
     </select>
 

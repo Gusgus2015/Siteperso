@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block entete %}
+
+  <h2>{{ parent() }} - Le Blog - Suppression </h2>
+
+{% endblock %}
+
+  
+{% block body %}
+<h2>Supprimer l'article {{ post.id }}</h2>
+  <p>
+    Etes-vous certain de vouloir supprimer l'annonce <strong>"{{ post.titre }}"</strong> ?
+  </p>
+
+  {# On met l'id de l'annonce dans la route de l'action du formulaire #}
+  <form action="{{ path('supprimer_post', {'id': post.id}) }}" method="post">
+    <a href="{{ path('article', {'id': post.id}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour à l'article
+    </a>
+    {# Ici j'ai écrit le bouton de soumission à la main #}
+    <input type="submit" value="Supprimer" class="btn btn-danger" />
+    {# Ceci va générer le champ CSRF #}
+    {{ form_rest(form) }}
+  </form>
+{% endblock %}

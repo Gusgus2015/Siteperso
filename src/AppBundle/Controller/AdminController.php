@@ -47,21 +47,33 @@ class AdminController extends Controller
      */
 	public function supprimerPostAction($id, Request $request)           
     {			
-	   /**Recupere l'EntityManager $em */
-	   $em = $this->getDoctrine()->getManager();
-	   /**Recupere le repository */
-	   $repository = $em->getRepository('AppBundle:Post');
-	   
-	    /**Recupere l'entité qui correspond à l'id */
-	   $post = $repository->find($id);
-	   
-	   /**On supprime le post */
-	   $em->remove($post);
-	   $em->flush();
-	   
-	   $request->getSession()->getFlashBag()->add('notice', 'L\'Article a été bien supprimé');
-	   
-	   return $this->redirect($this->generateUrl('blog'));
+	    $em = $this->getDoctrine()->getManager();
+
+		// On récupère l'annonce $id
+		$post = $em->getRepository('AppBundle:Post')->find($id);
+
+		if (null === $post) {
+		  throw new NotFoundHttpException("Le post N° ".$id." n'existe pas.");
+		}
+
+		// On crée un formulaire vide, qui ne contiendra que le champ CSRF
+		// Cela permet de protéger la suppression d'annonce contre cette faille
+		$form = $this->createFormBuilder()->getForm();
+
+		if ($form->handleRequest($request)->isValid()) {
+		  $em->remove($post);
+		  $em->flush();
+
+		  $request->getSession()->getFlashBag()->add('notice', "Le post a bien été supprimée.");
+
+		  return $this->redirect($this->generateUrl('blog'));
+		}
+
+		// Si la requête est en GET, on affiche une page de confirmation avant de supprimer
+		return $this->render('blog/supprimer.html.twig', array(
+		  'post' => $post,
+		  'form'   => $form->createView()
+		));
     }
 	
 	/**

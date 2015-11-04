@@ -1,5 +1,48 @@
-# Siteperso\app\Resources\config\routing.yml
+# C:\wamp\www\Siteperso\src\AppBundle\Resources\config\routing.yml
 
 app_accueil:
     path:      /
     defaults:  { _controller: AppBundle:Default:accueil }
+
+app_contact:
+    path:      /contact
+    defaults:  { _controller: AppBundle:Default:contact }
+
+blog:
+    path:      /blog
+    defaults:  { _controller: AppBundle:Blog:blog }
+
+article:
+    path:      /article/{id}
+    defaults:  { _controller: AppBundle:Blog:article }
+    requeriments:
+        id:  \id+
+
+commenter:
+    path:      /commenter/{id}}
+    defaults:  { _controller: AppBundle:Blog:commenter }
+    requeriments:
+        id:  \id+
+		
+ajouter_post:
+    path:      /ajouter_post
+    defaults:  { _controller: AppBundle:Admin:ajouter }
+    	
+
+modifier_post:
+    path:      /modifier_post/{id}
+    defaults:  { _controller: AppBundle:Admin:modifier }
+    requeriments:
+        id:  \id+
+		
+supprimer_post:
+    path:      /supprimer_post/{id}
+    defaults:  { _controller: AppBundle:Admin:supprimer }
+    requeriments:
+        id:  \id+
+		
+supprimer_comment:
+    path:      /supprimer_comment/{id}
+    defaults:  { _controller: AppBundle:Admin:supprimerComment }
+    requeriments:
+        id:  \id+
