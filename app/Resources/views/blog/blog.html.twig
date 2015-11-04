@@ -2,25 +2,50 @@
 
 {% block entete %}
 
-  <h2>{{ parent() }} - Le Blog</h2>   
- 
-{% endblock %}
-{% block body %}
-     <h4>Dernières post du Blog</h4>
-	
-  {% for post in posts %}
-    <div>    
-      <p>
-	    <a href="{{ path('article', {'id': post.id}) }}" class="btn btn-default btn-xs">
-          <i class="glyphicon glyphicon-edit"></i>
-          Voir l'article N° {{ post.id  }}
-        </a>
-	    <b>Par {{ post.auteur }}</b>
-        <time>,le {{ post.date|date('d/M/Y') }}</time>
-        {{ post.titre }}				
-	  </p>
-      <hr /> 
-    </div>
-  {% endfor %}
+    <h2>{{ parent() }} - Le Blog</h2>
 
 {% endblock %}
+{% block body %}
+
+<form method="get" class="ordenBy" action="">
+
+    <label for="orderBy">Filté par :</label>
+    <select name="orderBy" id="orderBy">
+        <option value="auteur">Auteur</option>
+        <option value="date">Date</option>
+    </select>
+
+    <label for="direction">Direction :</label>
+    <select name="direction" id="direction">
+        <option value="ASC">Croissant</option>
+        <option value="DESC">Décroissant</option>
+    </select>
+
+    <label for="auteurs">Auteurs :</label>
+    <select name="auteurs[]" id="auteurs" multiple>
+        {% for auteur in auteurs %}
+            <option value="{{ auteur.name }}">{{ auteur.name }}</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Filtrer</button>
+
+</form>
+    <h4>Dernières post du Blog</h4>
+
+    {% for post in posts %}
+        <div>
+            <p>
+                <a href="{{ path('article', {'id': post.id}) }}" class="btn btn-default btn-xs">
+                    <i class="glyphicon glyphicon-edit"></i>
+                    Voir l'article N° {{ post.id }}
+                </a>
+                <b>Par {{ post.auteur }}</b>
+                <time>,le {{ post.date|date('d/M/Y') }}</time>
+                {{ post.titre }}
+            </p>
+            <hr/>
+        </div>
+    {% endfor %}
+
+    {% endblock %}

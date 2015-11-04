@@ -4,35 +4,48 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Post;
 use AppBundle\Entity\Comment;
 use AppBundle\Form\CommentType;
-use Symfony\Component\Form\Form;
 
 class BlogController extends Controller
 {
 
     /**
      * @Route("/blog", name="blog")
+     * @param Request $request
+     *
+     * @return Response
      */
-    public function blogAction()
+    public function blogAction(Request $request)
     {
         $repository = $this
             ->getDoctrine()
             ->getManager()
             ->getRepository('AppBundle:Post');
 
-        $posts = $repository->myFindAll();
+        $orderBy = $request->query->get('orderBy');
+        $direction = $request->query->get('direction');
+        $auteurs = $request->query->get('auteurs');
+
+        $posts = $repository->myFindAll($orderBy, $direction, $auteurs);
+
+        $auteursListe = $this->getDoctrine()->getRepository('AppBundle:User')->findAll();
 
         return $this->render("blog/blog.html.twig", array(
-            'posts' => $posts
+            'posts' => $posts,
+            'auteurs' => $auteursListe,
         ));
     }
 
     /**
      * @Route("/article/{id}", name="article")
+     * @param $id
+     *
+     * @return Response
      */
     public function articleAction($id)
     {
@@ -41,9 +54,9 @@ class BlogController extends Controller
             ->getManager()
             ->getRepository('AppBundle:Post');
 
-        $post = $repository->find($id);		
-		
-        $em       = $this->getDoctrine()->getManager();
+        $post = $repository->find($id);
+
+        $em = $this->getDoctrine()->getManager();
         $comments = $em->getRepository('AppBundle:Comment')->findBy(array('post' => $post),
             array('date' => 'desc'),
             3,
@@ -58,11 +71,15 @@ class BlogController extends Controller
 
     /**
      * @Route("/commenter/{id}", name="commenter")
+     * @param mixed   $id
+     * @param Request $request
+     *
+     * @return RedirectResponse|Response
      */
     public function commenterAction($id, Request $request)
     {
         $comment = new Comment();
-        $form    = $this->createForm(new CommentType(), $comment);
+        $form = $this->createForm(new CommentType(), $comment);
 
         $repository = $this
             ->getDoctrine()
@@ -89,8 +106,5 @@ class BlogController extends Controller
             ));
         }
     }
-
-
-    
 
 }
