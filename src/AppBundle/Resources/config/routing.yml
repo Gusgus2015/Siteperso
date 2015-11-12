@@ -23,24 +23,23 @@ commenter:
     defaults:  { _controller: AppBundle:Blog:commenter }
     requeriments:
         id:  \id+
-		
+
 ajouter_post:
     path:      /ajouter_post
     defaults:  { _controller: AppBundle:Admin:ajouter }
-    	
 
 modifier_post:
     path:      /modifier_post/{id}
     defaults:  { _controller: AppBundle:Admin:modifier }
     requeriments:
         id:  \id+
-		
+
 supprimer_post:
     path:      /supprimer_post/{id}
     defaults:  { _controller: AppBundle:Admin:supprimer }
     requeriments:
         id:  \id+
-		
+
 supprimer_comment:
     path:      /supprimer_comment/{id}
     defaults:  { _controller: AppBundle:Admin:supprimerComment }
