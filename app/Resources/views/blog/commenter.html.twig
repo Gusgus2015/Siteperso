@@ -10,9 +10,11 @@
    <h3>Vous allez commenté l'article <strong>"{{ post.titre }}"</strong></h3>
    <p>Merci de remplir le formulaire et l'envoyer pour enrigestrer le commentaire</p>
    <form action="" method="post">
-
+   
+      <label name="auteur">Auteur</label> 
+	  <input type="text" name="auteur" value="{{ app.user }}">
       {{ form_widget(form) }}
-
+		
      <input type="submit" value="Envoyer">
    </form>
 {% endblock %}

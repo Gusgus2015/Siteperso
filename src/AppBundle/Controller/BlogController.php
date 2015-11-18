@@ -11,6 +11,7 @@ use AppBundle\Entity\Post;
 use AppBundle\Entity\Comment;
 use AppBundle\Form\CommentType;
 
+
 class BlogController extends Controller
 {
 
@@ -70,6 +71,7 @@ class BlogController extends Controller
     }
 
     /**
+	 * 
      * @Route("/commenter/{id}", name="commenter")
      * @param mixed   $id
      * @param Request $request
