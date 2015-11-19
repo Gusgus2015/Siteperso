@@ -29,9 +29,11 @@ class Comment
     private $date;
 
     /**
-     * @var User
-     *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     *
+     * @ORM\JoinColumn(nullable=false)
+     *
+     * @ORM\Column(name="auteur", type="string", length=255)
      */
     private $auteur;
 
@@ -42,7 +44,7 @@ class Comment
      */
     private $contenu;
 
-	 /**
+    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Post", inversedBy="comments")
      *
      * @ORM\JoinColumn(nullable=false)

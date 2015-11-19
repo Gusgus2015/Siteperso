@@ -19,7 +19,7 @@ article:
         id:  \id+
 
 commenter:
-    path:      /commenter/{id}}
+    path:      /commenter/{id}
     defaults:  { _controller: AppBundle:Blog:commenter }
     requeriments:
         id:  \id+
