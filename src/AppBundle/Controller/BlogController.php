@@ -71,7 +71,7 @@ class BlogController extends Controller
     }
 
     /**
-	 * 
+	 *
      * @Route("/commenter/{id}", name="commenter")
      * @param mixed   $id
      * @param Request $request
@@ -94,6 +94,14 @@ class BlogController extends Controller
         $comment->setPost($post);
 
         if ($form->handleRequest($request)->isValid()) {
+
+            /**
+             * "$this->getUser()" est une méthode permettant de récupérer l'utilisateur courant
+             * Cette méthode renvoie "null" si l'utilisateur n'est pas connecté
+             * @see http://api.symfony.com/2.6/Symfony/Bundle/FrameworkBundle/Controller/Controller.html#method_getUser
+             */
+            $comment->setAuteur($this->getUser());
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);
             $em->flush();

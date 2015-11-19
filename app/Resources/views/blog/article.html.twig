@@ -20,7 +20,7 @@
 		<a href="{{ path('commenter', {'id': post.id}) }}" class="btn btn-primary btn-xs">
           <i class="glyphicon glyphicon-edit"></i>
           Merci pour faire un commentaire
-        </a>		
+        </a>
 		<a href="{{ path('supprimer_post', {'id': post.id}) }}" class="btn btn-danger btn-xs">
           <i class="glyphicon glyphicon-trash"></i>
           Supprimer l'article N° {{ post.id  }}
@@ -52,5 +52,5 @@
     </div>
   {% else %}
     <p>Pas de commentaire pour le moment, allé fait toi le premier commentaire !</p>
-  {% endfor %}  
+  {% endfor %}
 {% endblock %}

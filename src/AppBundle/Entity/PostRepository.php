@@ -25,8 +25,9 @@ class PostRepository extends EntityRepository
         // Critères de sélection
         if (count($auteurs)) {
             // Critères de sélection
-            $req->where('p.auteur IN ( :auteurs )');
-            $req->setParameter(':auteurs', $auteurs);
+            $req->leftJoin('p.auteur', 'auteur');
+            $req->where('auteur.username IN ( :auteurs )');
+            $req->setParameter(':auteurs', array_filter($auteurs));// "array_filter" utilisé de cette façon permet de supprimer les éléments vides dans un tableau
         }
 
         // Critères de tri
