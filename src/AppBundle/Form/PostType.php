@@ -16,11 +16,10 @@ class PostType extends AbstractType
     {
         $builder
             ->add('titre')
-            ->add('auteur')
             ->add('contenu')
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

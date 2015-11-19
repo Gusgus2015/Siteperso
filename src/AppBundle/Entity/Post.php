@@ -37,9 +37,10 @@ class Post
     private $titre;
 
     /**
-     * @var string
+     * @var User
      *
-     * @ORM\Column(name="auteur", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $auteur;
 
@@ -149,11 +150,11 @@ class Post
     /**
      * Set auteur
      *
-     * @param string $auteur
+     * @param User $auteur
      *
      * @return Post
      */
-    public function setAuteur($auteur)
+    public function setAuteur(User $auteur)
     {
         $this->auteur = $auteur;
 
@@ -163,7 +164,7 @@ class Post
     /**
      * Get auteur
      *
-     * @return string
+     * @return User
      */
     public function getAuteur()
     {

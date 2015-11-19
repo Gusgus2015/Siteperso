@@ -29,9 +29,9 @@ class Comment
     private $date;
 
     /**
-     * @var string
+     * @var User
      *
-     * @ORM\Column(name="auteur", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      */
     private $auteur;
 
@@ -41,20 +41,18 @@ class Comment
      * @ORM\Column(name="contenu", type="text")
      */
     private $contenu;
-	
+
 	 /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Post", inversedBy="comments")
      *
      * @ORM\JoinColumn(nullable=false)
      */
     private $post;
-	
-	
+
 	public function __construct()
 	{
 		$this->date = new \Datetime();
 	}
-
 
     /**
      * Get id
@@ -93,11 +91,11 @@ class Comment
     /**
      * Set auteur
      *
-     * @param string $auteur
+     * @param User $auteur
      *
      * @return Comment
      */
-    public function setAuteur($auteur)
+    public function setAuteur(User $auteur = null)
     {
         $this->auteur = $auteur;
 
@@ -107,7 +105,7 @@ class Comment
     /**
      * Get auteur
      *
-     * @return string
+     * @return User
      */
     public function getAuteur()
     {
