@@ -29,8 +29,9 @@ class Comment
     private $date;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @var User
      *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      * @ORM\JoinColumn(nullable=false)
      *
      * @ORM\Column(name="auteur", type="string", length=255)
