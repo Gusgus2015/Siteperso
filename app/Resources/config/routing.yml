@@ -1,4 +1,4 @@
-# C:\wamp\www\Siteperso\src\AppBundle\Resources\config\routing.yml
+# C:\wamp\www\Siteperso\src\app\Resources\config\routing.yml
 
 app_accueil:
     path:      /
@@ -46,3 +46,14 @@ supprimer_comment:
     defaults:  { _controller: AppBundle:Admin:supprimerComment }
     requeriments:
         id:  \id+
+
+ajouter_page:
+    path:      /ajouter_page
+    defaults:  { _controller: AppBundle:Admin:page }
+	
+page:
+   path:    /page/{slug}
+   defaults: { _controller: AppBundle:Default:page }
+   requeriments:
+      slug: \slug+
+     _format: html|rss

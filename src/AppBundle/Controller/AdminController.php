@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Post;
 use AppBundle\Form\PostType;
+use AppBundle\Entity\Page;
+use AppBundle\Form\PageType;
 
 class AdminController extends Controller
 {
@@ -125,5 +127,35 @@ class AdminController extends Controller
             ));
 		}
 	}
+	
+	/**
+     * @Route("/ajouter_page", name="ajouter_page")
+	 *
+	 * @param Request $request
+     */
+    public function pageAction(Request $request)
+    {
+        $page = new Page();
+        $form = $this->createForm(new PageType(), $page);
+
+        if ($form->handleRequest($request)->isValid()) 
+		{
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($page);
+			$page->updateSlug();
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'La page a bien été crée.');
+			
+						
+            return $this->redirect($this->generateUrl('page', array('slug' => $page->getSlug())));
+        } 
+		else 
+		{
+            return $this->render('default/form_page.html.twig', array(
+                'form' => $form->createView(),
+            ));
+        }
+    }
 
 }

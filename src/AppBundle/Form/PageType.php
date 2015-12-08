@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class PostType extends AbstractType
+class PageType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -16,18 +16,17 @@ class PostType extends AbstractType
     {
         $builder
             ->add('titre')
-            ->add('contenu')
-			->add('tags')
+            ->add('contenu')            
         ;
     }
-
+    
     /**
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Post'
+            'data_class' => 'AppBundle\Entity\Page'
         ));
     }
 
@@ -36,6 +35,6 @@ class PostType extends AbstractType
      */
     public function getName()
     {
-        return 'appbundle_post';
+        return 'appbundle_page';
     }
 }

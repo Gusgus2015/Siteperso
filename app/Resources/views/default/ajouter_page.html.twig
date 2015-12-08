@@ -2,13 +2,13 @@
 
 {% block entete %}
 
-  <h2>{{ parent() }} - Contact</h2>   
+  <h2>{{ parent() }} - Ajout d'une nouvelle page</h2>   
  
 {% endblock %}
 
 {% block body %}
-   <h3>Merci de remplir le formulaire et l'envoyer</h3>
-   <form action="{{ path('contact') }}" method="post">
+   <h3>Mettre le titre précis et court stp</h3>
+   <form action="contact.html.twig" method="post">
       {{ form_widget(form) }}
      <input type="submit" value="Envoyer">
    </form>

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,6 +29,21 @@ class Tag
      */
     private $nom;
 
+	/**
+	 * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Post", inversedBy="tags")
+	 */
+	private $posts;
+
+	/**
+	 * Méthode magique pour représenter l'objet sous forme d'une chaîne de caractères
+	 */
+	public function __toString() {
+		return $this->id.' - '.$this->nom;
+	}
+
+	public function __construct() {
+		$this->posts = new ArrayCollection();
+	}
 
     /**
      * Get id
@@ -62,4 +78,18 @@ class Tag
     {
         return $this->nom;
     }
+	
+	public function getPosts() {
+		return $this->posts;
+	}
+	
+	public function addPost(Post $post) {
+		$this->posts->add($post);
+		return $this;
+	}
+	
+	public function removePost(Post $post) {
+		$this->posts->removeElement($post);
+		return $this;
+	}
 }

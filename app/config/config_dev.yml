@@ -9,7 +9,8 @@ framework:
 
 web_profiler:
     toolbar: true
-    intercept_redirects: false
+    intercept_redirects: true 
+    # si pongo  intercept_redirects en false no me indica en mode dev. las redirecciones, si esta en true las muestra en pag intermediaria. 
 
 monolog:
     handlers:
@@ -44,5 +45,5 @@ monolog:
 assetic:
     use_controller: true
 
-#swiftmailer:
-#    delivery_address: me@example.com
+swiftmailer:    
+    delivery_address: gustavovieira123@hotmail.com

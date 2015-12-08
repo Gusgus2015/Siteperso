@@ -2,13 +2,12 @@
 
 {% block entete %}
 
-  <h2>{{ parent() }} - Contact</h2>   
+  <h2>{{ parent() }} - Formulaire pour crée une page</h2>   
  
 {% endblock %}
 
 {% block body %}
-   <h3>Merci de remplir le formulaire et l'envoyer</h3>
-   <form action="{{ path('contact') }}" method="post">
+    <form action="{{ path('ajouter_page') }}" method="post">
       {{ form_widget(form) }}
      <input type="submit" value="Envoyer">
    </form>

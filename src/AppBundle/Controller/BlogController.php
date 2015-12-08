@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Post;
 use AppBundle\Entity\Comment;
 use AppBundle\Form\CommentType;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 
 
 class BlogController extends Controller
@@ -84,7 +85,7 @@ class BlogController extends Controller
 		if (!$this->get('security.context')->isGranted('ROLE_USER')) 
 		{
 		  // Sinon on déclenche une exception « Accès interdit »
-		  throw new AccessDeniedException('Accès limité aux membres.');
+		  throw new AccessDeniedException('Accès limité aux membres. SVP connectez-vous !');
 		}
 		$comment = new Comment();
 	
@@ -100,14 +101,14 @@ class BlogController extends Controller
 
         $comment->setPost($post);
 
-        if ($form->handleRequest($request)->isValid()) {
+		/**
+		 * "$this->getUser()" est une méthode permettant de récupérer l'utilisateur courant
+		 * Cette méthode renvoie "null" si l'utilisateur n'est pas connecté
+		 * @see http://api.symfony.com/2.6/Symfony/Bundle/FrameworkBundle/Controller/Controller.html#method_getUser
+		 */
+		$comment->setAuteur($this->getUser());
 
-            /**
-             * "$this->getUser()" est une méthode permettant de récupérer l'utilisateur courant
-             * Cette méthode renvoie "null" si l'utilisateur n'est pas connecté
-             * @see http://api.symfony.com/2.6/Symfony/Bundle/FrameworkBundle/Controller/Controller.html#method_getUser
-             */
-            $comment->setAuteur($this->getUser());
+        if ($form->handleRequest($request)->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);

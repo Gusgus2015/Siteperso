@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block entete %}
+
+  <h2>{{ parent() }} - Email de contact</h2>   
+ 
+{% endblock %}
+
+{% block body %}
+   <h3>Merci M./Mme.{{ path('contact') }}de nous contacter</h3>
+   <p>Nous allons prendre soin de votre demande le plus vite possible.</p>
+   
+{% endblock %}

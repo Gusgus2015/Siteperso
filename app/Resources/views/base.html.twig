@@ -28,7 +28,10 @@
             <ul class="nav nav-pills nav-stacked">
               <li><a href="{{ path('accueil') }}" >Accueil</a></li> 
               <li><a href="{{ path('blog') }}" >Blog</a></li>
-              <li><a href="{{ path('ajouter_post') }}" class="btn btn-danger btn-xs">Ajouter un Post</a></li>
+			  <li><a href="{{ path('page', {"slug": "Informations"}) }}" >Informations</a></li>
+			  {% if is_granted("ROLE_ADMIN") or is_granted("ROLE_MODERATEUR") %}
+                 <li><a href="{{ path('ajouter_post') }}" class="btn btn-danger btn-xs">Ajouter un Post</a></li>
+			  {% endif %}
             </ul>        
           </div>
           <div id="content" class="col-md-9">        

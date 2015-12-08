@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Post
  *
- * @ORM\Table()
+ * @ORM\Table(name="post")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\PostRepository")
  */
 class Post
@@ -37,10 +37,10 @@ class Post
     private $titre;
 
     /**
-     * @var User
+     * @var user
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=true, name="auteur_id")
      */
     private $auteur;
 
@@ -52,17 +52,35 @@ class Post
     private $contenu;
 
     /**
-     *@ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="post", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="post", cascade={"remove"})
      *
      */
     protected $comments;
+	
+	/**
+	 * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Tag", inversedBy="posts", cascade={"persist"})
+	 */
+	protected $tags;
 
+	 /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Page", mappedBy="auteur", cascade={"remove"})
+     *
+     */
+    protected $pages;
+	
 	// Comme la propriété $comments doit être un ArrayCollection,
 	// On doit la définir dans un constructeur :
 	public function __construct()
 	{
 		$this->date = new \Datetime();
 		$this->comments = new ArrayCollection();
+	}
+	
+	
+	
+	public function __toString() 
+	{
+		return $this->titre.', par '.$this->auteur;
 	}
 
     /**
@@ -203,5 +221,39 @@ class Post
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Add tag
+     *
+     * @param \AppBundle\Entity\Tag $tag
+     *
+     * @return Post
+     */
+    public function addTag(\AppBundle\Entity\Tag $tag)
+    {
+        $this->tags[] = $tag;
+
+        return $this;
+    }
+
+    /**
+     * Remove tag
+     *
+     * @param \AppBundle\Entity\Tag $tag
+     */
+    public function removeTag(\AppBundle\Entity\Tag $tag)
+    {
+        $this->tags->removeElement($tag);
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 }

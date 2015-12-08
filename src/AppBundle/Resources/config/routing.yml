@@ -7,7 +7,7 @@ app_accueil:
 app_contact:
     path:      /contact
     defaults:  { _controller: AppBundle:Default:contact }
-
+	
 blog:
     path:      /blog
     defaults:  { _controller: AppBundle:Blog:blog }
@@ -45,3 +45,15 @@ supprimer_comment:
     defaults:  { _controller: AppBundle:Admin:supprimerComment }
     requeriments:
         id:  \id+
+
+ajouter_page:
+    path:      /ajouter_page
+    defaults:  { _controller: AppBundle:Admin:page }
+	
+page:
+   path:    /page/{slug}
+   defaults: { _controller: AppBundle:Default:page }
+   requeriments:
+      slug: \slug+
+     _format: html|rss
+	 

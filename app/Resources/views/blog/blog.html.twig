@@ -42,7 +42,7 @@
                 </a>
                 <b>Par {{ post.auteur }}</b>
                 <time>,le {{ post.date|date('d/M/Y') }}</time>
-                {{ post.titre }}
+                {{ post }}{# Affiche le retour de la méthode __toString() de l'objet Post #}
             </p>
             <hr/>
         </div>

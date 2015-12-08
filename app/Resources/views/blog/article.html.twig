@@ -28,6 +28,14 @@
         </h4>
         <b><i>Par {{ post.auteur }}</i></b>
         <time>Le {{ post.date|date('d/M/Y') }}</time>
+		<h3>Tags:</h3>
+		<ul>
+			{% for tag in post.tags %}
+				<li>{{ tag }}</li>
+			{% else %}
+				<li>Aucun</li>
+			{% endfor %}
+		</ul>
       </header>
 
     <div class="well well-sm">

@@ -32,9 +32,7 @@ class Comment
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
-     * @ORM\JoinColumn(nullable=false)
-     *
-     * @ORM\Column(name="auteur", type="string", length=255)
+     * @ORM\JoinColumn(nullable=false, name="auteur_id")
      */
     private $auteur;
 
@@ -47,8 +45,7 @@ class Comment
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Post", inversedBy="comments")
-     *
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, name="post_id")
      */
     private $post;
 

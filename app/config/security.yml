@@ -29,6 +29,6 @@ security:
                 key:        %secret%
 
     access_control:   # si no pongo esto cuando quiero hacer un comentario y no soy user no me presenta la conexion y da error
-        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         #- { path: ^/commenter/, roles: ROLE_USER }  
         #- { path: ^/ajouter_post/, roles: ROLE_ADMIN }
