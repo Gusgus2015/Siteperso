@@ -3,14 +3,20 @@
 
 namespace AppBundle\Services;
 
+use Symfony\Component\Templating\EngineInterface;
+use AppBundle\Entity\Messages;
+
+
 class AppMailer
 {
   private $mailer;
   private $message;
+  private $templating;
   
-  public function __construct(\Swift_Mailer $mailer)
+  public function __construct(\Swift_Mailer $mailer, $templating)
   {
     $this->mailer = $mailer;
+	$this->templating = $templating;
   }  
 
   /**
@@ -18,12 +24,12 @@ class AppMailer
    */
    public function sendContactEmail(Message $message)
    {
-	 $message = \Swift_Messages::newInstance()
+	$email_contact = \Swift_Message::newInstance()
 			->setSubject('Votre message a bien été reçu !')
 			->setFrom('vleprince123@gmail.com')
 			->setTo($email())
 			->setBody(
-				$this->renderView(
+				$this->templating->render(
 					// app/Resources/views/default/email.html.twig
 					'default/email.html.twig',
 					array(

@@ -58,7 +58,7 @@ class DefaultController extends Controller
             $em->persist($messages);
             $em->flush();
 					
-			$this->get('app_mailer')->sendContactEmail($message);	
+			$this->get('app_mailer')->sendContactEmail($messages);	
 			
 			 			
             $request->getSession()->getFlashBag()->add('notice', 'La question a bien été envoyé.');

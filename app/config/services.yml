@@ -8,5 +8,6 @@ services:
          class: AppBundle\Services\AppMailer
          arguments: 
               - @mailer
+              - @templating
 
  #       arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
