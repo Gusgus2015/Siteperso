@@ -4,8 +4,9 @@ parameters:
 #    parameter_name: value
 
 services:
-    # blog_mailer:
-      app_mailer:
-         class: AppBundle\Services\App_mailer
-         arguments: []
+    app_mailer:
+         class: AppBundle\Services\AppMailer
+         arguments: 
+              - @mailer
+
  #       arguments: ["@another_service_name", "plain_value", "%parameter_name%"]

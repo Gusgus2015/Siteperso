@@ -57,21 +57,10 @@ class DefaultController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($messages);
             $em->flush();
-
-			$app_mailer = \Swift_Message::newInstance()
-				->setSubject('Votre message a bien été reçu !')
-				->setFrom(array('vleprince123@gmail.com' => 'Blog Siteperso'))
-				->setTo($messages->getEmail())
-				->setCharset('utf-8')
-				->setContentType('text/html')
-				->setBody(
-					$this->renderView(
-						// app/Resources/views/default/email.html.twig
-						'default/email.html.twig'));
-						
-			$this->get('mailer')->send($app_mailer);
-			 
+					
+			$this->get('app_mailer')->sendContactEmail($message);	
 			
+			 			
             $request->getSession()->getFlashBag()->add('notice', 'La question a bien été envoyé.');
 
             return $this->redirect($this->generateUrl('accueil', array('id' => $messages->getId())));

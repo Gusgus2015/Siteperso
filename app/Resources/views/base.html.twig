@@ -17,9 +17,9 @@
         <div id="header" class="jumbotron">
           <h2>{% block entete %}Mon Siteperso{% endblock %}</h2>
           <p>Ce projet est propulsé par Alex et suivi par Gustavo :)</p>
-          <p><a class="btn btn-primary btn-lg" href="http://localhost/Siteperso/web/app_dev.php/contact">Contactez-nous !</a>
-		  <a class="btn btn-info btn-lg" href="http://localhost/Siteperso/web/app_dev.php/register">Créer votre compte</a>
-		  <a class="btn btn-success btn-lg" href="http://localhost/Siteperso/web/app_dev.php/login">Votre compte</a></p>
+          <p><a class="btn btn-primary btn-lg" href="{{ path('contact') }}">Contactez-nous !</a>
+		  <a class="btn btn-info btn-lg" href="{{ path('fos_user_registration_register') }}">Créer votre compte</a>
+		  <a class="btn btn-success btn-lg" href="{{ path('fos_user_security_login') }}">Votre compte</a></p>
         </div>
       
         <div class="row">
