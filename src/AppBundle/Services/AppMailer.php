@@ -3,42 +3,63 @@
 
 namespace AppBundle\Services;
 
-use Symfony\Component\Templating\EngineInterface;
 use AppBundle\Entity\Messages;
-
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 
 class AppMailer
 {
-  private $mailer;
-  private $message;
-  private $templating;
-  
-  public function __construct(\Swift_Mailer $mailer, $templating)
-  {
-    $this->mailer = $mailer;
-	$this->templating = $templating;
-  }  
+    /**
+     * @var \Swift_Mailer
+     */
+    private $swiftmailer;
 
-  /**
-   * @Route("/", name="email_contact")
-   */
-   public function sendContactEmail(Message $message)
-   {
-	$email_contact = \Swift_Message::newInstance()
-			->setSubject('Votre message a bien été reçu !')
-			->setFrom('vleprince123@gmail.com')
-			->setTo($email())
-			->setBody(
-				$this->templating->render(
-					// app/Resources/views/default/email.html.twig
-					'default/email.html.twig',
-					array(
-						'nom' => $nom, 
-						'prenom' => $prenom,
-						'email' => $email,
-					),
-					'Merci de nous contacter, nous sommes ravis de vous donner une réponse le plus vite possible.'
-					));
-   }
- 
+    /**
+     * @var EngineInterface
+     */
+    private $templating;
+
+    public function __construct(\Swift_Mailer $swiftmailer, EngineInterface $templating)
+    {
+        $this->swiftmailer = $swiftmailer;
+        $this->templating  = $templating;
+    }
+
+    public function sendContactEmail(Messages $message)
+    {
+        // Envoie un remerciement à l'utilisateur
+        $email_contact = \Swift_Message::newInstance()
+            ->setSubject('Votre message a bien été reçu !')
+            ->setFrom('vleprince123@gmail.com')
+            ->setTo($message->getEmail())
+            ->setContentType('text/html')
+            ->setBody(
+                $this->templating->render(
+                    'default/email.html.twig',
+                    array(
+                        'nom'    => $message->getNom(),
+                        'prenom' => $message->getPrenom(),
+                        'email'  => $message->getEmail(),
+                    )
+                ));
+
+        $this->swiftmailer->send($email_contact);
+
+
+        // Envoie un message à Gustavo pour le prévenir qu'il vient d'être contacté
+        $email_contact = \Swift_Message::newInstance()
+            ->setSubject('Gustavo, vous avez reçu un message !')
+            ->setTo('vleprince123@gmail.com')
+            ->setFrom($message->getEmail())
+            ->setContentType('text/html')
+            ->setBody(
+                $this->templating->render(
+                    'default/email_contact_gustavo.html.twig',
+                    array(
+                        'message' => $message,
+                    )
+                ));
+
+        $this->swiftmailer->send($email_contact);
+    }
+
 }

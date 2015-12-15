@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Gustavo, tu as reçu un message !</title>
+</head>
+<body>
+
+<h1>Bonjour Gustavo, tu as reçu un message :</h1>
+
+<p>De : {{ message.prenom }} {{ message.nom | upper }}</p>
+<p>Email : {{ message.email }}</p>
+<p>Contenu :</p>
+
+<p>{{ message.question }}</p>
+
+</body>
+</html>
