@@ -56,18 +56,12 @@ class Post
      *
      */
     protected $comments;
-	
+
 	/**
 	 * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Tag", inversedBy="posts", cascade={"persist"})
 	 */
 	protected $tags;
 
-	 /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Page", mappedBy="auteur", cascade={"remove"})
-     *
-     */
-    protected $pages;
-	
 	// Comme la propriété $comments doit être un ArrayCollection,
 	// On doit la définir dans un constructeur :
 	public function __construct()
@@ -75,10 +69,10 @@ class Post
 		$this->date = new \Datetime();
 		$this->comments = new ArrayCollection();
 	}
-	
-	
-	
-	public function __toString() 
+
+
+
+	public function __toString()
 	{
 		return $this->titre.', par '.$this->auteur;
 	}

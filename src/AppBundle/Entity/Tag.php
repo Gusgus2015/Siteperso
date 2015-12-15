@@ -30,7 +30,7 @@ class Tag
     private $nom;
 
 	/**
-	 * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Post", inversedBy="tags")
+	 * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Post", mappedBy="tags")
 	 */
 	private $posts;
 
@@ -78,16 +78,16 @@ class Tag
     {
         return $this->nom;
     }
-	
+
 	public function getPosts() {
 		return $this->posts;
 	}
-	
+
 	public function addPost(Post $post) {
 		$this->posts->add($post);
 		return $this;
 	}
-	
+
 	public function removePost(Post $post) {
 		$this->posts->removeElement($post);
 		return $this;
